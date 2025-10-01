@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dai8ay4jekxr"]
+
+[ext_resource type="Script" uid="uid://jrt1imvsrbj1" path="res://scripts/spawner_llamas.gd" id="1_ln184"]
+[ext_resource type="PackedScene" uid="uid://b4uoc72et8jm1" path="res://scenes/llama.tscn" id="2_hrb8n"]
+
+[node name="SpawnerLlamas" type="Area2D"]
+script = ExtResource("1_ln184")
+fire_scene = ExtResource("2_hrb8n")
