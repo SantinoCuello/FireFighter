@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://b07rppv7h3exy"]
+
+[ext_resource type="Texture2D" uid="uid://h01q8axr1bx4" path="res://assets/Bomba.png" id="1_qtt4c"]
+[ext_resource type="Script" uid="uid://dc3lv1ck1pdku" path="res://scripts/zona_de_recarga.gd" id="2_p7cim"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7cim"]
+atlas = ExtResource("1_qtt4c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y8h73"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7cim")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfrxs"]
+size = Vector2(11, 16.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtt4c"]
+size = Vector2(22, 38)
+
+[node name="Bomba" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y8h73")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.75)
+shape = SubResource("RectangleShape2D_pfrxs")
+
+[node name="ZonaDeRecarga" type="Area2D" parent="."]
+script = ExtResource("2_p7cim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaDeRecarga"]
+shape = SubResource("RectangleShape2D_qtt4c")

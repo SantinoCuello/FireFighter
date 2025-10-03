@@ -32,6 +32,14 @@ func recieve_water(cantidad: float) -> void:
 		HP = aux
 		bar.value = HP
 
+func boost_fire(cantidad: float) -> void:
+	HP += cantidad
+	if HP > MAX_HP:
+		HP = MAX_HP
+	bar.value = HP
+	print("🔥 La llama en ", spawn_pos, " fue potenciada. HP = ", HP)
+
+
 func fire():
 	print("La casa se prende fuego!!")
 	

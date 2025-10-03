@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce8pbxe2iu7sc"]
+[gd_scene load_steps=8 format=3 uid="uid://ce8pbxe2iu7sc"]
 
 [ext_resource type="Texture2D" uid="uid://cxygd6r2to2n3" path="res://assets/Personaje_Idle1.png" id="1_l5pff"]
 [ext_resource type="Script" uid="uid://w3xvwl2vpvkb" path="res://scripts/bombero.gd" id="1_uraqi"]
@@ -21,6 +21,11 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3yrgn"]
 radius = 7.0
 height = 22.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uraqi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxgc4"]
+bg_color = Color(0.041794144, 0.6234316, 1, 1)
 
 [node name="Bombero" type="CharacterBody2D"]
 script = ExtResource("1_uraqi")
@@ -45,3 +50,21 @@ points = PackedVector2Array(0, 0, 100, 0)
 width = 6.0
 default_color = Color(0, 1, 1, 1)
 texture_mode = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(30, 8)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = 18.0
+offset_right = 15.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_uraqi")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rxgc4")
+rounded = true
+show_percentage = false

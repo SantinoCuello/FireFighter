@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4uoc72et8jm1"]
+[gd_scene load_steps=8 format=3 uid="uid://b4uoc72et8jm1"]
 
 [ext_resource type="Script" uid="uid://bxo7c5nd63fu8" path="res://scripts/llama.gd" id="1_eufwj"]
 [ext_resource type="Texture2D" uid="uid://2uil6tsn8aow" path="res://assets/Llama1.png" id="2_sxbn4"]
@@ -18,11 +18,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eufwj"]
+bg_color = Color(3.3691526e-06, 0.68533254, 0.69572747, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxbn4"]
+bg_color = Color(0.9372549, 0.043137256, 0.11764706, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eufwj"]
 size = Vector2(20, 28)
 
 [node name="Llama" type="Area2D"]
-collision_layer = 2
+collision_layer = 34
 collision_mask = 2
 script = ExtResource("1_eufwj")
 
@@ -30,15 +36,19 @@ script = ExtResource("1_eufwj")
 sprite_frames = SubResource("SpriteFrames_2y38o")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
 custom_minimum_size = Vector2(40, 8)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-offset_bottom = -32.0
+offset_left = -20.0
+offset_top = 18.0
+offset_right = 20.0
+offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_eufwj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sxbn4")
 max_value = 10.0
 show_percentage = false
 
