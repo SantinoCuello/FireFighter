@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ce8pbxe2iu7sc"]
+[gd_scene load_steps=10 format=3 uid="uid://ce8pbxe2iu7sc"]
 
 [ext_resource type="Texture2D" uid="uid://cxygd6r2to2n3" path="res://assets/Personaje_Idle1.png" id="1_l5pff"]
 [ext_resource type="Script" uid="uid://w3xvwl2vpvkb" path="res://scripts/bombero.gd" id="1_uraqi"]
@@ -27,6 +27,11 @@ height = 22.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxgc4"]
 bg_color = Color(0.041794144, 0.6234316, 1, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rxgc4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3yrgn"]
+bg_color = Color(0, 1, 0.09411765, 1)
+
 [node name="Bombero" type="CharacterBody2D"]
 script = ExtResource("1_uraqi")
 
@@ -51,7 +56,7 @@ width = 6.0
 default_color = Color(0, 1, 1, 1)
 texture_mode = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="WaterBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(30, 8)
 anchors_preset = 7
 anchor_left = 0.5
@@ -68,3 +73,19 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_uraqi")
 theme_override_styles/fill = SubResource("StyleBoxFlat_rxgc4")
 rounded = true
 show_percentage = false
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = -19.0
+offset_top = -25.0
+offset_right = 19.0
+offset_bottom = -20.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_rxgc4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3yrgn")
+value = 100.0
+show_percentage = false
+
+[node name="RespawnLabel" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -59.0
+offset_right = 20.0
+offset_bottom = -36.0

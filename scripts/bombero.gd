@@ -1,22 +1,41 @@
 extends CharacterBody2D
 
+#VIDA Y ESTADISTICAS
+@onready var hp_bar: ProgressBar = $HPBar
+
+var HP : int = 100
+var MAX_HP: int = 100
+const SPEED = 100
+#Muerte
+@onready var respawn_label: Label = $RespawnLabel
+var is_dead: bool = false
+var respawn_time: float = 10.0
+var respawn_timer: float = 0.0
+
+
+#AGUA
 @onready var ray: RayCast2D = $RayCast2D
 @onready var line: Line2D = $Line2D
-@onready var bar: ProgressBar = $ProgressBar
+@onready var water_bar: ProgressBar = $WaterBar
 
-const SPEED = 100
 const MAX_RANGE = 100
 const MAX_WATER = 100
 
 var water: float = MAX_WATER
 var water_consumption_rate: float = 20.0
 
+
 func _ready() -> void:
 	ray.enabled = true
 	line.visible = false
-	bar.value = 100
+	water_bar.value = MAX_WATER
+	hp_bar.value = MAX_HP
 
 func _physics_process(delta):
+	if is_dead:
+		handle_respawn(delta)
+		return  # no puede moverse ni disparar
+		
 	player_movement()
 	water_shoot()
 	
@@ -47,6 +66,40 @@ func player_movement():
 		
 	move_and_slide()
 	
+func recieve_damage(damage):
+	if is_dead:
+		return
+	var aux = HP - damage
+	if aux <= 0:
+		HP = 0
+		hp_bar.value = HP
+		die()
+	else:
+		HP = aux
+		hp_bar.value = HP
+	
+func die():
+	is_dead = true
+	respawn_timer = respawn_time
+	respawn_label.visible = true
+	line.visible = false  # deja de disparar
+	print("Bombero fuera de servicio por 3 segundos")
+	
+func handle_respawn(delta):
+	respawn_timer -= delta
+	respawn_label.text = "Reactivando en: " + str(round(respawn_timer)) + "..."
+	
+	if respawn_timer <= 0:
+		respawn_label.visible = false
+		is_dead = false
+		HP = MAX_HP
+		hp_bar.value = HP
+		print("Bombero listo para volver a trabajar 🚒")
+
+
+
+
+	
 func water_shoot():
 	if Input.is_action_pressed("shoot") and water > 0:
 		line.visible = true
@@ -58,7 +111,7 @@ func water_shoot():
 			water = 0
 			print("Ya no hay agua")
 		
-		bar.value = water
+		water_bar.value = water
 		
 		if ray.is_colliding():
 			var objective = ray.get_collider()
@@ -81,4 +134,4 @@ func reload_water(delta):
 	water += MAX_WATER   # velocidad de recarga
 	if water > MAX_WATER:
 		water = MAX_WATER
-		bar.value = water
+		water_bar.value = water

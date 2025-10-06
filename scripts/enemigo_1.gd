@@ -8,11 +8,14 @@ var HP: float = 30
 
 @onready var bar: ProgressBar = $ProgressBar
 
+var DAMAGE = 40
+
 
 func _ready() -> void:
 	bar.max_value = MAX_HP
 	bar.value = MAX_HP
 	bar.show_percentage = false
+	connect("body_entered", Callable(self, "_on_body_entered"))
 
 func _physics_process(delta: float) -> void:
 	#Si no tiene posicion
@@ -32,6 +35,15 @@ func _physics_process(delta: float) -> void:
 	var dir = to_target.normalized()
 	global_position += dir * SPEED * delta
 
+func _on_body_entered(body):
+	# Verifica que el cuerpo tocado sea el bombero
+	if body.name == "Bombero":  
+		if body.is_dead == true:
+			return
+		if body.has_method("recieve_damage"):
+			body.recieve_damage(DAMAGE) 
+		queue_free()  # destruye al enemigo después de hacer daño
+		
 func _on_reached_house():
 	print("El enemigo llegó a la casa en ", target_position)
 
@@ -44,8 +56,8 @@ func _on_reached_house():
 
 	queue_free()
 	
-func recieve_water(cantidad: float) -> void:
-	var aux = HP - cantidad
+func recieve_water(water: float) -> void:
+	var aux = HP - water
 	if aux <= 0:
 		HP = 0
 		bar.value = HP

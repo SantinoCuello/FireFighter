@@ -59,15 +59,17 @@ func spawn_fire_at(pos: Vector2):
 				child.boost_fire(20) # 👈 ajustá el valor de potencia a gusto
 				return
 		return
+	else:
+		var fire_instance = fire_scene.instantiate()
+		fire_instance.global_position = pos
+		fire_instance.spawn_pos = pos
+		fire_instance.HP = 20
+		add_child(fire_instance)
 
+		used_positions.append(pos)
+		print("🔥 Casa incendiada en ", pos)
 
-	var fire_instance = fire_scene.instantiate()
-	fire_instance.global_position = pos
-	fire_instance.spawn_pos = pos
-	add_child(fire_instance)
-
-	used_positions.append(pos)
-	print("🔥 Casa incendiada en ", pos)
+	
 	
 	
 	
