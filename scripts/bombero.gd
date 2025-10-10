@@ -9,7 +9,7 @@ const SPEED = 100
 #Muerte
 @onready var respawn_label: Label = $RespawnLabel
 var is_dead: bool = false
-var respawn_time: float = 10.0
+var respawn_time: float = 4.0
 var respawn_timer: float = 0.0
 
 

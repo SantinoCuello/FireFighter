@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var SPEED: float = 80.0
+@export var SPEED: float = 100.0
 var target_position: Vector2 = Vector2.ZERO
 
 @export var MAX_HP: int = 30
@@ -8,7 +8,7 @@ var HP: float = 30
 
 @onready var bar: ProgressBar = $ProgressBar
 
-var DAMAGE = 40
+var DAMAGE = 50
 
 
 func _ready() -> void:
@@ -41,7 +41,7 @@ func _on_body_entered(body):
 		if body.is_dead == true:
 			return
 		if body.has_method("recieve_damage"):
-			body.recieve_damage(DAMAGE) 
+			body.recieve_damage(HP*10) 
 		queue_free()  # destruye al enemigo después de hacer daño
 		
 func _on_reached_house():
@@ -52,7 +52,7 @@ func _on_reached_house():
 	var flame_spawner = get_tree().get_first_node_in_group("flame_spawner")
 	#Si tiene el metodo spawn_fire_at
 	if flame_spawner and flame_spawner.has_method("spawn_fire_at"):
-		flame_spawner.spawn_fire_at(target_position)
+		flame_spawner.spawn_fire_at(target_position, HP)
 
 	queue_free()
 	

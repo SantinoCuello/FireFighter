@@ -48,7 +48,7 @@ func release_position(pos: Vector2):
 		print("🚒 Casa apagada en ", pos, " vuelve a estar disponible.")
 		
 
-func spawn_fire_at(pos: Vector2):
+func spawn_fire_at(pos: Vector2, damage : float):
 	# Si ya está usada esa posición, no duplicamos fuego
 	if pos in used_positions:
 		print("⚠️ La casa en ", pos, " ya está incendiada, potenciamos fuego")
@@ -63,7 +63,7 @@ func spawn_fire_at(pos: Vector2):
 		var fire_instance = fire_scene.instantiate()
 		fire_instance.global_position = pos
 		fire_instance.spawn_pos = pos
-		fire_instance.HP = 20
+		fire_instance.HP = damage
 		add_child(fire_instance)
 
 		used_positions.append(pos)
