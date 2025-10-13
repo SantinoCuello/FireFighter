@@ -26,7 +26,6 @@ func recieve_water(cantidad: float) -> void:
 	if aux <= 0:
 		HP = 0
 		bar.value = HP
-		notify_spawner()
 		queue_free()
 	else:
 		HP = aux
@@ -42,8 +41,3 @@ func boost_fire(cantidad: float) -> void:
 
 func fire():
 	print("La casa se prende fuego!!")
-	
-func notify_spawner():
-	var spawner = get_parent()
-	if spawner.has_method("release_position"):
-		spawner.release_position(spawn_pos)

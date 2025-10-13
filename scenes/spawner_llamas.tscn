@@ -4,5 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b4uoc72et8jm1" path="res://scenes/llama.tscn" id="2_hrb8n"]
 
 [node name="SpawnerLlamas" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_ln184")
 fire_scene = ExtResource("2_hrb8n")

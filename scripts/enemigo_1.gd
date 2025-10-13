@@ -1,6 +1,6 @@
-extends Area2D
+extends CharacterBody2D
 
-@export var SPEED = 100
+@export var speed = 100
 var target_position: Vector2 = Vector2.ZERO
 
 @export var MAX_HP: int = 30
@@ -10,39 +10,24 @@ var HP: float = 30
 
 var DAMAGE = 50
 
+@onready var area: Area2D = $Area2D
+
 
 func _ready() -> void:
 	bar.max_value = MAX_HP
 	bar.value = MAX_HP
 	bar.show_percentage = false
-	connect("body_entered", Callable(self, "_on_body_entered"))
+	area.connect("body_entered", Callable(self, "_on_area_entered"))
 	
 func _process(delta: float) -> void:
-	get_parent().set_progress(get_parent().get_progress() + SPEED*delta)
+	get_parent().set_progress(get_parent().get_progress() + speed*delta)
 	if get_parent().get_progress_ratio() == 1:
 		queue_free()
 	
-func _on_body_entered(body):
-	# Verifica que el cuerpo tocado sea el bombero
-	if body.name == "Bombero":  
-		if body.is_dead == true:
-			return
-		if body.has_method("recieve_damage"):
-			body.recieve_damage(HP*10) 
-		queue_free()  # destruye al enemigo después de hacer daño
-	
-		
-func _on_reached_house():
-	print("El enemigo llegó a la casa en ", target_position)
-
-	# Avisar al Spawner de llamas que genere fuego en esa posición
-	#Busca el spawner
-	var flame_spawner = get_tree().get_first_node_in_group("flame_spawner")
-	#Si tiene el metodo spawn_fire_at
-	if flame_spawner and flame_spawner.has_method("spawn_fire_at"):
-		flame_spawner.spawn_fire_at(target_position, HP)
-
-	queue_free()
+func _on_area_entered(body):
+	if body.has_method("recieve_damage"):
+		body.recieve_damage(DAMAGE)
+		queue_free() # opcional: enemigo muere tras chocar
 	
 func recieve_water(water: float) -> void:
 	var aux = HP - water

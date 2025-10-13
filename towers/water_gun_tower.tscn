@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c570fpa1pvs58"]
+
+[ext_resource type="Script" uid="uid://b12xidkerqdy4" path="res://scripts/water_gun_tower.gd" id="1_80apf"]
+[ext_resource type="Texture2D" uid="uid://vhols7mxfs5x" path="res://assets/WaterGun.png" id="2_4p15d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84aoq"]
+size = Vector2(29, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_odw0t"]
+radius = 91.197586
+
+[node name="WaterGunTower" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_80apf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_84aoq")
+
+[node name="Aim" type="Marker2D" parent="."]
+position = Vector2(-28, 0)
+
+[node name="WaterGun" type="Sprite2D" parent="."]
+rotation = 1.5707964
+texture = ExtResource("2_4p15d")
+
+[node name="Tower" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower"]
+shape = SubResource("CircleShape2D_odw0t")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[connection signal="body_entered" from="Tower" to="." method="_on_tower_body_entered"]
+[connection signal="body_exited" from="Tower" to="." method="_on_tower_body_exited"]

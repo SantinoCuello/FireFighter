@@ -115,6 +115,7 @@ func water_shoot():
 		
 		if ray.is_colliding():
 			var objective = ray.get_collider()
+			print(objective)
 			if objective != null && objective.has_method("recieve_water"):
 				objective.recieve_water(40 * get_process_delta_time())
 	else:

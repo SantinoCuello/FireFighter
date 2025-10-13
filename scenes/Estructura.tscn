@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8kfo5n0oiei3"]
+
+[ext_resource type="Script" uid="uid://c14553doghyd3" path="res://scripts/estructura.gd" id="1_wbh4e"]
+[ext_resource type="Texture2D" uid="uid://h01q8axr1bx4" path="res://assets/Bomba.png" id="2_kki6x"]
+[ext_resource type="PackedScene" uid="uid://dai8ay4jekxr" path="res://scenes/spawner_llamas.tscn" id="3_kki6x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_854vk"]
+size = Vector2(20, 34)
+
+[node name="Estructura" type="StaticBody2D"]
+script = ExtResource("1_wbh4e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kki6x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_854vk")
+
+[node name="SpawnerLlamas" parent="." instance=ExtResource("3_kki6x")]
