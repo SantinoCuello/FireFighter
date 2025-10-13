@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var SPEED: float = 100.0
+@export var SPEED = 100
 var target_position: Vector2 = Vector2.ZERO
 
 @export var MAX_HP: int = 30
@@ -16,6 +16,13 @@ func _ready() -> void:
 	bar.value = MAX_HP
 	bar.show_percentage = false
 	connect("body_entered", Callable(self, "_on_body_entered"))
+	
+func _process(delta: float) -> void:
+	get_parent().set_progress(get_parent().get_progress() + SPEED*delta)
+	if get_parent().get_progress_ratio() == 1:
+		queue_free()
+	
+	
 
 func _physics_process(delta: float) -> void:
 	#Si no tiene posicion
