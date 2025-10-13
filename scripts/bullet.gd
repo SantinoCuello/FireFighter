@@ -19,5 +19,6 @@ func _physics_process(delta: float) -> void:
 				
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if "Enemigo A" in body.name:
+	if "Enemigo" in body.name:
+		body.recieve_water(bulletDamage)
 		queue_free()

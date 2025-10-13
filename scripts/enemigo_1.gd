@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 100
+@export var speed = 50
 var target_position: Vector2 = Vector2.ZERO
 
 @export var MAX_HP: int = 30
@@ -23,6 +23,9 @@ func _process(delta: float) -> void:
 	get_parent().set_progress(get_parent().get_progress() + speed*delta)
 	if get_parent().get_progress_ratio() == 1:
 		queue_free()
+		
+	if HP <= 0:
+		get_parent().get_parent().queue_free()
 	
 func _on_area_entered(body):
 	if body.has_method("recieve_damage"):

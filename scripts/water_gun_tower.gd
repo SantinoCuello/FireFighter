@@ -1,17 +1,19 @@
 extends StaticBody2D
 
 var Bullet = preload("res://towers/bullet.tscn")
-var bulletDamage = 10
+var bulletDamage = 20
 var pathName
 var currentTargets = []
 var curr
 
+func _process(delta: float) -> void:
+	if is_instance_valid(curr):
+		self.look_at(curr.global_position)
 
 func _on_tower_body_entered(body: Node2D) -> void:
 	if "Enemigo1" in body.name:
 		var tempArray = []
 		currentTargets = get_node("Tower").get_overlapping_bodies()
-		print(currentTargets)
 		
 		for i in currentTargets:
 			if "Enemigo" in i.name:
@@ -23,7 +25,7 @@ func _on_tower_body_entered(body: Node2D) -> void:
 			if currentTarget == null:
 				currentTarget = i.get_node("../")
 			else:
-				if i.get_parent().get_progress() > currentTarget.getProgress():
+				if i.get_parent().get_progress() > currentTarget.get_progress():
 					currentTarget = i.get_node("../")
 					
 		curr = currentTarget	
@@ -36,4 +38,4 @@ func _on_tower_body_entered(body: Node2D) -> void:
 		tempBullet.global_position = $Aim.global_position
 	
 func _on_tower_body_exited(body: Node2D) -> void:
-	pass
+	currentTargets = get_node("Tower").get_overlapping_bodies()

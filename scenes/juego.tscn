@@ -1094,10 +1094,10 @@ sources/0 = SubResource("TileSetAtlasSource_uc3sl")
 position = Vector2(216, 18)
 
 [node name="PathSpawner" type="Node2D" parent="."]
+top_level = true
 script = ExtResource("8_5g1u2")
 
 [node name="Timer" type="Timer" parent="PathSpawner"]
-wait_time = 5.0
 autostart = true
 
 [node name="Fondo" type="TileMapLayer" parent="."]

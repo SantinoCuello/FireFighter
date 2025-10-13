@@ -19,10 +19,10 @@ position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_84aoq")
 
 [node name="Aim" type="Marker2D" parent="."]
-position = Vector2(-28, 0)
+position = Vector2(18, 0)
 
 [node name="WaterGun" type="Sprite2D" parent="."]
-rotation = 1.5707964
+rotation = 4.712389
 texture = ExtResource("2_4p15d")
 
 [node name="Tower" type="Area2D" parent="."]
