@@ -22,26 +22,6 @@ func _process(delta: float) -> void:
 	if get_parent().get_progress_ratio() == 1:
 		queue_free()
 	
-	
-
-func _physics_process(delta: float) -> void:
-	#Si no tiene posicion
-	if target_position == Vector2.ZERO:
-		return
-	
-	#Distancia hacia el objetivo
-	var to_target = target_position - global_position
-	var dist = to_target.length()
-
-	# Si llego a la casa
-	if dist <= 8.0:
-		_on_reached_house()
-		return
-
-	# Movimiento normalizado
-	var dir = to_target.normalized()
-	global_position += dir * SPEED * delta
-
 func _on_body_entered(body):
 	# Verifica que el cuerpo tocado sea el bombero
 	if body.name == "Bombero":  
@@ -50,6 +30,7 @@ func _on_body_entered(body):
 		if body.has_method("recieve_damage"):
 			body.recieve_damage(HP*10) 
 		queue_free()  # destruye al enemigo después de hacer daño
+	
 		
 func _on_reached_house():
 	print("El enemigo llegó a la casa en ", target_position)

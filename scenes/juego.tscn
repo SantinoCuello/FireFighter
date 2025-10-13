@@ -1,12 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://dhg68hitqe6i7"]
+[gd_scene load_steps=10 format=4 uid="uid://dhg68hitqe6i7"]
 
 [ext_resource type="Texture2D" uid="uid://1fvcnyfxkepu" path="res://assets/Overworld.png" id="1_uc3sl"]
 [ext_resource type="PackedScene" uid="uid://ce8pbxe2iu7sc" path="res://scenes/bombero.tscn" id="1_x4n2o"]
 [ext_resource type="PackedScene" uid="uid://b07rppv7h3exy" path="res://scenes/bomba.tscn" id="4_iq6uk"]
 [ext_resource type="PackedScene" uid="uid://dai8ay4jekxr" path="res://scenes/spawner_llamas.tscn" id="4_pew7j"]
-[ext_resource type="PackedScene" uid="uid://cnl1ivsyjbegj" path="res://scenes/spawner_enemigos.tscn" id="5_iq6uk"]
-[ext_resource type="PackedScene" uid="uid://8rooxcq80tbf" path="res://scenes/enemigo_1.tscn" id="6_ervc2"]
-[ext_resource type="Script" uid="uid://em28q6yofq78" path="res://scripts/path_follow_2d.gd" id="7_ebtnq"]
 [ext_resource type="Script" uid="uid://b612s21w4s2t4" path="res://scripts/path_spawner.gd" id="8_5g1u2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uc3sl"]
@@ -2117,12 +2114,6 @@ texture = ExtResource("1_uc3sl")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_2ka1k")
 
-[sub_resource type="Curve2D" id="Curve2D_5g1u2"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -249, 21, 0, 0, 0, 0, 258, 20)
-}
-point_count = 2
-
 [node name="Juego" type="Node2D"]
 
 [node name="Fondo" type="TileMapLayer" parent="."]
@@ -2145,24 +2136,13 @@ position = Vector2(43, 34)
 zoom = Vector2(2, 2)
 
 [node name="SpawnerLlamas" parent="." instance=ExtResource("4_pew7j")]
-position = Vector2(2, -7)
-
-[node name="SpawnerEnemigos" parent="." instance=ExtResource("5_iq6uk")]
 visible = false
-position = Vector2(-44, 71)
-enemy_scene = ExtResource("6_ervc2")
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_5g1u2")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-249, 21)
-rotation = -0.001972384
-script = ExtResource("7_ebtnq")
-
-[node name="Enemigo1" parent="Path2D/PathFollow2D" instance=ExtResource("6_ervc2")]
+position = Vector2(2, -7)
 
 [node name="PathSpawner" type="Node2D" parent="."]
 script = ExtResource("8_5g1u2")
 
 [node name="Timer" type="Timer" parent="PathSpawner"]
+autostart = true
+
+[connection signal="timeout" from="PathSpawner/Timer" to="PathSpawner" method="_on_timer_timeout"]
