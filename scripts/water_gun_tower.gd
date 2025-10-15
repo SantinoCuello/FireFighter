@@ -9,7 +9,10 @@ var curr
 func _process(delta: float) -> void:
 	if is_instance_valid(curr):
 		self.look_at(curr.global_position)
-
+	else:
+		for i in get_node("BulletContainer").get_child_count():
+			get_node("BulletContainer").get_child(i).queue_free()
+			
 func _on_tower_body_entered(body: Node2D) -> void:
 	if "Enemigo1" in body.name:
 		var tempArray = []
@@ -26,7 +29,7 @@ func _on_tower_body_entered(body: Node2D) -> void:
 				currentTarget = i.get_node("../")
 			else:
 				if i.get_parent().get_progress() > currentTarget.get_progress():
-					currentTarget = i.get_node("../")
+					currentTarget = i.get_node("../")       
 					
 		curr = currentTarget	
 		pathName = currentTarget.get_parent().name
